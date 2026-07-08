@@ -30,8 +30,8 @@
 #include "zones.h"
 
 #define SET_TIME_FACE_NUM_SETTINGS (7)
-const char set_time_face_titles[SET_TIME_FACE_NUM_SETTINGS][6] = {"Year ", "Month", "Day  ", "     ", "Hour ", "Minut", "Secnd"};
-const char set_time_face_fallback_titles[SET_TIME_FACE_NUM_SETTINGS][3] = {"YR", "MO", "DA", "  ", "HR", "M1", "SE"};
+const char set_time_face_titles[SET_TIME_FACE_NUM_SETTINGS][6] = {"ANO  ", "MES  ", "DIA  ", "2ONA ", "HORA ", "MIN  ", "SEG  "};
+const char set_time_face_fallback_titles[SET_TIME_FACE_NUM_SETTINGS][3] = {"YR", "MO", "DA", "2N", "HR", "M1", "SE"};
 
 static bool _quick_ticks_running;
 static int32_t current_offset;
@@ -128,14 +128,12 @@ bool set_time_face_loop(movement_event_t event, void *context) {
     watch_display_text(WATCH_POSITION_TOP_RIGHT, "  ");
     watch_display_text_with_fallback(WATCH_POSITION_TOP, (char *) set_time_face_titles[current_page], (char *) set_time_face_fallback_titles[current_page]);
     if (current_page == 3) {
-        watch_display_text(WATCH_POSITION_TOP_RIGHT, " Z");
-        if (current_offset < 0) watch_display_text(WATCH_POSITION_TOP_LEFT, "- ");
-        else watch_display_text(WATCH_POSITION_TOP_LEFT, "* ");
-        if (event.subsecond % 2) {
+        if (event.subsecond/2 % 2) {
             uint8_t hours = abs(current_offset) / 3600;
             uint8_t minutes = (abs(current_offset) % 3600) / 60;
 
-            sprintf(buf, "%2d%02d  ", hours % 100, minutes % 100);
+            sprintf(buf, "%2d%02d%c ", hours % 100, minutes % 100,
+                current_offset < 0 ? '~' : ' ');
             watch_set_colon();
         } else {
             sprintf(buf, "%s", watch_utility_time_zone_name_at_index(movement_get_timezone_index()));
