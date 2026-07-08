@@ -1,21 +1,37 @@
 name: GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   gh-pages:
     runs-on: ubuntu-latest
+    container:
+      image: emscripten/emsdk
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Doxygen Action
-        uses: mattnotmitt/doxygen-action@v1
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Ensure workspace directory is defined as safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Build emulator
+        env:
+          BOARD: sensorwatch_pro
+          DISPLAY: custom
+        run: emmake make
+
+      - name: Stage emulator for Pages
+        run: |
+          mkdir -p sim
+          cp build-sim/firmware.html sim/index.html
+          cp build-sim/firmware.wasm build-sim/firmware.js sim/
+
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: docs/
+          publish_dir: sim/
