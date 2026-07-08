@@ -68,6 +68,10 @@ static const uint8_t DISPLAY_RUNNING_RATE_SLOW = 2;
 static void _display_elapsed(fast_stopwatch_state_t *state, uint32_t ticks) {
     char buf[3];
 
+    if (ticks >= 200*60*128 - 1) {
+        ticks  = 200*60*128 - 1;
+    }
+
     if (state->slow_refresh && (state->status == SW_STATUS_RUNNING || state->status == SW_STATUS_IDLE)) {
         watch_display_character_lp_seconds(' ', 8);
         watch_display_character_lp_seconds(' ', 9);
@@ -97,22 +101,12 @@ static void _display_elapsed(fast_stopwatch_state_t *state, uint32_t ticks) {
 
     state->old_display.minutes = minutes;
 
-    sprintf(buf, "%02lu", minutes % 60);
+    sprintf(buf, "%02lu", minutes % 100);
     watch_display_text(WATCH_POSITION_HOURS, buf);
-
-    uint32_t hours = (minutes / 60) % 24;
-
-    if (hours == state->old_display.hours) {
-        return;
-    }
-
-    state->old_display.hours = hours;
-
-    if (hours) {
-        sprintf(buf, "%2lu", hours);
-        watch_display_text(WATCH_POSITION_TOP_RIGHT, buf);
+    if (minutes >= 100) {
+        watch_set_pixel(0, 22);
     } else {
-        watch_display_text(WATCH_POSITION_TOP_RIGHT, "  ");
+        watch_clear_pixel(0, 22);
     }
 }
 
@@ -318,7 +312,7 @@ bool fast_stopwatch_face_loop(movement_event_t event, void *context) {
 
     switch (event.event_type) {
         case EVENT_ACTIVATE:
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "STW", "ST");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP, "CRONO", "ST");
             _draw_indicators(state, event, elapsed);
             _display_elapsed(state, elapsed);
             break;
