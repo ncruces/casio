@@ -174,64 +174,35 @@ static void _draw_day_and_time(uint32_t time, bool show_day, bool show_hour, boo
 
 static void _draw(tide_state_t *state, uint32_t now, uint8_t subsecond) {
     watch_clear_display();
+    watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "MAR", "TI");
     switch (state->mode) {
         case TIDE_SCREEN_EMPTY:
-            watch_display_text_with_fallback(WATCH_POSITION_TOP, "TIDE", "TI");
             watch_display_text(WATCH_POSITION_BOTTOM, "----");
             break;
         case TIDE_SCREEN_CURRENT: {
-            double tide_age = state->next_high_tide - now;
-            _draw_tide_amplitude(now);
-            double tide_percent = (cos(tide_age / SEMI_DIURNAL_TIDAL_PERIOD * M_PI * 2) + 1) * 50;
-            if (tide_percent < 5) {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP, "LOW", "LO");
-            } else if (tide_percent > 95) {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP, "HIGH", "HI");
+            uint32_t next_tide_time;
+            tide_type_t next_tide_type;
+            if (state->next_high_tide - now > SEMI_DIURNAL_TIDAL_PERIOD / 2) {
+                next_tide_time = state->next_high_tide - SEMI_DIURNAL_TIDAL_PERIOD / 2;
+                next_tide_type = TIDE_LOW;
             } else {
-                if (state->next_high_tide - now < SEMI_DIURNAL_TIDAL_PERIOD / 2) {
-                    watch_display_text_with_fallback(WATCH_POSITION_TOP, "FLOOd", "FL");
-                } else {
-                    watch_display_text_with_fallback(WATCH_POSITION_TOP, "EBB", "EB");
-                }
-                if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                    uint8_t tide_upercent = tide_percent;
-                    char hour[2];
-                    char minute[2];
-                    hour[0] = minute[1] = ' ';
-                    hour[1] = '0' + tide_upercent / 10;
-                    minute[0] = '0' + tide_upercent % 10;
-                    // We use the second hour digit for our first digit, as it’s
-                    // more capable than the first hour or minute digits.
-                    watch_display_text(WATCH_POSITION_HOURS, hour);
-                    watch_display_text(WATCH_POSITION_MINUTES, minute);
-                } else {
-                    char tide_text[7];
-                    uint8_t tide_upercent = tide_percent;
-                    sprintf(tide_text, "%2hhu", tide_upercent);
-                    watch_display_text(WATCH_POSITION_HOURS, tide_text);
-                    watch_display_text(WATCH_POSITION_MINUTES, "o#");  // # is rendered as °, o° looks like a percent sign, maybe...
-                }
+                next_tide_time = state->next_high_tide;
+                next_tide_type = TIDE_HIGH;
             }
+            _draw_day_and_time(next_tide_time, true, true, true);
+            watch_display_text(WATCH_POSITION_SECONDS, next_tide_type == TIDE_LOW ? "BX" : "AL");
             break;
         }
         case TIDE_SCREEN_FUTURE:
-            if (state->future_tide_type == TIDE_LOW) {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "LOW", "LO");
-            } else {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "HIG", "HI");
-            }
             _draw_day_and_time(state->future_tide_time, true, true, true);
-            _draw_tide_amplitude(state->future_tide_time);
+            watch_display_text(WATCH_POSITION_SECONDS, state->future_tide_type == TIDE_LOW ? "BX" : "AL");
+            /* _draw_tide_amplitude(state->future_tide_time); */
             break;
         case TIDE_SCREEN_SETTING_HOUR:
         case TIDE_SCREEN_SETTING_MIN:
-            if (state->start_setting) {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP, "HIGH", "HI");
-            } else {
-                watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "HIG", "HI");
-            }
-            _draw_day_and_time(state->next_high_tide, !state->start_setting,
+            _draw_day_and_time(state->next_high_tide, true,
                                (state->mode != TIDE_SCREEN_SETTING_HOUR || subsecond % 2), (state->mode != TIDE_SCREEN_SETTING_MIN || subsecond % 2));
+            watch_display_text(WATCH_POSITION_SECONDS, "AL");
             break;
     }
 }
@@ -323,11 +294,11 @@ bool tide_face_loop(movement_event_t event, void* context) {
             switch(state->mode) {
                 case TIDE_SCREEN_CURRENT:
                     if (state->next_high_tide - now > SEMI_DIURNAL_TIDAL_PERIOD / 2) {
-                        state->future_tide_time = state->next_high_tide - SEMI_DIURNAL_TIDAL_PERIOD / 2;
-                        state->future_tide_type = TIDE_LOW;
-                    } else {
                         state->future_tide_time = state->next_high_tide;
                         state->future_tide_type = TIDE_HIGH;
+                    } else {
+                        state->future_tide_time = state->next_high_tide + SEMI_DIURNAL_TIDAL_PERIOD / 2;
+                        state->future_tide_type = TIDE_LOW;
                     }
                     state->mode = TIDE_SCREEN_FUTURE;
                     break;
