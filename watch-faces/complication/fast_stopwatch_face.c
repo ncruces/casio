@@ -318,7 +318,7 @@ bool fast_stopwatch_face_loop(movement_event_t event, void *context) {
 
     switch (event.event_type) {
         case EVENT_ACTIVATE:
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "STW", "ST");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP, "CRONO", "ST");
             _draw_indicators(state, event, elapsed);
             _display_elapsed(state, elapsed);
             break;
