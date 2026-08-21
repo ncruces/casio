@@ -80,123 +80,104 @@ static void _update(moon_phase_state_t *state) {
     switch (phase_index) {
         case 0:
         case 8:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "NE!J  ", " Neu  ");
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA NV", " Neu  ");
             watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
             break;
         case 1:
-            watch_display_text(WATCH_POSITION_BOTTOM, "CresNt");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAX", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    if (currentfrac > 0.125) watch_set_pixel(1, 13);
-                } else {
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                    if (currentfrac > 0.125) watch_set_pixel(2, 14);
-                }
+            watch_display_text(WATCH_POSITION_BOTTOM, "LUA CR");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(3, 18);
+            if (!southern) {
+                watch_set_pixel(3, 17);
+                if (currentfrac > 0.125) watch_set_pixel(2, 17);
+            } else {
+                watch_set_pixel(2, 18);
+                if (currentfrac > 0.125) watch_set_pixel(0, 18);
             }
             break;
         case 2:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, southern ? "3rdQtr" : "1stQtr", southern ? " 3rd q" : " 1st q");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAX", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    watch_set_pixel(1, 13);
-                    watch_set_pixel(1, 14);
-                } else {
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(2, 14);
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                }
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA CR", southern ? " 3rd q" : " 1st q");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(1, 17);
+            watch_set_pixel(3, 18);
+            if (!southern) {
+                watch_set_pixel(2, 17);
+                watch_set_pixel(3, 17);
+            } else {
+                watch_set_pixel(0, 18);
+                watch_set_pixel(2, 18);
             }
             break;
         case 3:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "GbboUs", " Gibb ");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAX", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(1, 13);
-                    watch_set_pixel(1, 15);
-                } else {
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(2, 14);
-                    watch_set_pixel(1, 15);
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                }
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA CR", " Gibb ");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(1, 17);
+            watch_set_pixel(1, 18);
+            watch_set_pixel(3, 18);
+            if (!southern) {
+                watch_set_pixel(2, 17);
+                watch_set_pixel(3, 17);
+            } else {
+                watch_set_pixel(0, 18);
+                watch_set_pixel(2, 18);
             }
             break;
         case 4:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "FULL  ", " FULL ");
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA CH", " FULL ");
             watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                watch_set_pixel(2, 13);
-                watch_set_pixel(2, 15);
-                watch_set_pixel(1, 14);
-                watch_set_pixel(2, 14);
-                watch_set_pixel(1, 15);
-                watch_set_pixel(0, 14);
-                watch_set_pixel(0, 13);
-                watch_set_pixel(1, 13);
-            }
+
+            watch_set_pixel(0, 17);
+            watch_set_pixel(1, 17);
+            watch_set_pixel(2, 17);
+            watch_set_pixel(3, 17);
+            watch_set_pixel(0, 18);
+            watch_set_pixel(1, 18);
+            watch_set_pixel(2, 18);
+            watch_set_pixel(3, 18);
             break;
         case 5:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "GbboUs", " Gibb ");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAN", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(2, 14);
-                    watch_set_pixel(1, 15);
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                } else {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(1, 13);
-                    watch_set_pixel(1, 15);
-                }
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA MG", " Gibb ");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(0, 17);
+            watch_set_pixel(1, 17);
+            watch_set_pixel(1, 18);
+            if (!southern) {
+                watch_set_pixel(0, 18);
+                watch_set_pixel(2, 18);
+            } else {
+                watch_set_pixel(2, 17);
+                watch_set_pixel(3, 17);
             }
             break;
         case 6:
-            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, southern ? "1stQtr" : "3rdQtr", southern ? " 1st q" : " 3rd q");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAN", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(1, 14);
-                    watch_set_pixel(2, 14);
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                } else {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    watch_set_pixel(1, 13);
-                    watch_set_pixel(1, 14);
-                }
+            watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "LUA MG", southern ? " 1st q" : " 3rd q");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(0, 17);
+            watch_set_pixel(1, 17);
+            if (!southern) {
+                watch_set_pixel(0, 18);
+                watch_set_pixel(2, 18);
+            } else {
+                watch_set_pixel(2, 17);
+                watch_set_pixel(3, 17);
             }
             break;
         case 7:
-            watch_display_text(WATCH_POSITION_BOTTOM, "CresNt");
-            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "WAN", "  ");
-            if (watch_get_lcd_type() == WATCH_LCD_TYPE_CLASSIC) {
-                if (!southern) {
-                    watch_set_pixel(0, 14);
-                    watch_set_pixel(0, 13);
-                    if (currentfrac < 0.875) watch_set_pixel(2, 14);
-                } else {
-                    watch_set_pixel(2, 13);
-                    watch_set_pixel(2, 15);
-                    if (currentfrac < 0.875) watch_set_pixel(1, 13);
-                }
+            watch_display_text(WATCH_POSITION_BOTTOM, "LUA MG");
+            watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "   ", "  ");
+
+            watch_set_pixel(0, 17);
+            if (!southern) {
+                watch_set_pixel(0, 18);
+                if (currentfrac < 0.875) watch_set_pixel(2, 18);
+            } else {
+                watch_set_pixel(2, 17);
+                if (currentfrac < 0.875) watch_set_pixel(3, 17);
             }
             break;
     }
