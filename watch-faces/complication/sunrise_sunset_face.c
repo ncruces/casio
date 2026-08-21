@@ -76,8 +76,8 @@ static void _sunrise_sunset_face_update(sunrise_sunset_state_t *state) {
     }
 
     if (movement_location.reg == 0) {
-        watch_display_text_with_fallback(WATCH_POSITION_TOP, "Sunri", "rI");
-        watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "No LOC", "No Loc");
+        watch_display_text_with_fallback(WATCH_POSITION_TOP, "SOL  ", "rI");
+        watch_display_text_with_fallback(WATCH_POSITION_BOTTOM, "----  ", "No Loc");
         return;
     }
 
@@ -106,7 +106,7 @@ static void _sunrise_sunset_face_update(sunrise_sunset_state_t *state) {
             else watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, "DIA", "rI");
             sprintf(buf, "%2d", scratch_time.unit.day);
             watch_display_text(WATCH_POSITION_TOP_RIGHT, buf);
-            watch_display_text(WATCH_POSITION_BOTTOM, "None  ");
+            watch_display_text(WATCH_POSITION_BOTTOM, "24h   ");
             return;
         }
 
