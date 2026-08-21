@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Movement: Sensor Watch Documentation</title>
+<title>Movement: watch_duration_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -56,8 +56,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="doc-content">
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function(){ initResizable(false); });
@@ -84,25 +82,33 @@ $(function(){ initResizable(false); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">Sensor Watch Documentation </div></div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">watch_duration_t Struct Reference<div class="ingroups"><a class="el" href="group__utility.html">Utility Functions</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This documentation covers most of the functions you will use to interact with the Sensor Watch hardware. It is divided into the following sections:  </p>
-<ul>
-<li><a class="el" href="group__rtc.html">Real-Time Clock</a> - This section covers functions related to the SAM L22's real-time clock peripheral, including date, time and alarm functions.</li>
-<li><a class="el" href="group__slcd.html">Segment LCD Display</a> - This section covers functions related to the Segment LCD display driver, which is responsible for displaying strings of characters and indicators on the main watch display.</li>
-<li><a class="el" href="group__buttons.html">Buttons &amp; External Interrupts</a> - This section covers functions related to the three buttons: Light, Mode and Alarm.</li>
-<li><a class="el" href="group__tcc.html">Buzzer and LED Control (via the TCC peripheral)</a> - This section covers functions related to the LED and piezo buzzer, which are controlled by the SAM L22's Timer Counter for Control, or TCC peripheral.</li>
-<li><a class="el" href="group__adc.html">Analog Input</a> - This section covers functions related to the SAM L22's analog-to-digital converter, as well as configuring and reading values from the five analog-capable pins on the 9-pin connector.</li>
-<li><a class="el" href="group__gpio.html">Digital Input and Output</a> - This section covers functions related to general-purpose input and output signals.</li>
-<li><a class="el" href="group__i2c.html">I2C Controller Driver</a> - This section covers functions related to the SAM L22's built-I2C driver, including configuring the I2C bus, putting values directly on the bus and reading data from registers on I2C devices.</li>
-<li><a class="el" href="group__spi.html">SPI Controller Driver</a> - This section covers functions related to the SAM L22's built-in SPI driver.</li>
-<li><a class="el" href="group__uart.html">UART</a> - This section covers functions related to the UART peripheral.</li>
-<li><a class="el" href="group__deepsleep.html">Sleep Control</a> - This section covers functions related to preparing for and entering BACKUP mode, the deepest sleep mode available on the SAM L22. </li>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:ga214dcb4a04944fec63818c52e6c4096f" id="r_ga214dcb4a04944fec63818c52e6c4096f"><td class="memItemLeft" align="right" valign="top">
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>seconds</b></td></tr>
+<tr class="separator:ga214dcb4a04944fec63818c52e6c4096f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc7fa57c207237df2190f4979a625053" id="r_gafc7fa57c207237df2190f4979a625053"><td class="memItemLeft" align="right" valign="top">
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>minutes</b></td></tr>
+<tr class="separator:gafc7fa57c207237df2190f4979a625053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05216f93223bb35b5166b03ab59098a1" id="r_ga05216f93223bb35b5166b03ab59098a1"><td class="memItemLeft" align="right" valign="top">
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>hours</b></td></tr>
+<tr class="separator:ga05216f93223bb35b5166b03ab59098a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64f074551349a7dd1c922287dc731c15" id="r_ga64f074551349a7dd1c922287dc731c15"><td class="memItemLeft" align="right" valign="top">
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>days</b></td></tr>
+<tr class="separator:ga64f074551349a7dd1c922287dc731c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>watch-library/shared/watch/<a class="el" href="watch__utility_8h_source.html">watch_utility.h</a></li>
 </ul>
-</div></div><!-- PageDoc -->
-<a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
